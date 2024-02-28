@@ -4,6 +4,7 @@ from googletrans import Translator, LANGUAGES
 from PIL import Image, ImageTk
 from gtts import gTTS
 import os
+from playsound import playsound
 # from langcodes import Language
 # from pydub import AudioSegment
 
@@ -54,7 +55,8 @@ def voice():
     text1 = Trans()
     speech = gTTS(text=text1, lang=lang_codes[dest_lang.get()], slow=False)
     speech.save("out.mp3")
-    os.system("start out.mp3")
+    playsound("out.mp3")
+    # os.system("start out.mp3")
 image_path = "C:\PCL\Aditi College\SE\PBL\Audio.jpg"  
 img = Image.open(image_path)
 img = img.resize((50,50))
