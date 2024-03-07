@@ -1,5 +1,6 @@
 from tkinter import *         # tinker is used for GUI
 from tkinter import ttk       # for styling 
+import tkinter as tk
 from googletrans import Translator, LANGUAGES
 from PIL import Image, ImageTk
 from gtts import gTTS
@@ -49,22 +50,30 @@ def Trans():
 trans_btn = Button(root, text="Translate", font="arial 12 bold", pady=5, command=Trans, bg="orange", activebackground="green")
 trans_btn.place(x=445, y=123)
 
+# minimize_window
+def minimize_window(window_title):
+    # Find the window with the specified title and minimize it
+   for window in tk._default_root.children.values():
+        if isinstance(window, tk.Toplevel) and window.wm_title() == "Language Translator":
+            window.iconify()
+            return
+
 # audio 
 def voice():
     lang_codes = {'afrikaans': 'af', 'albanian': 'sq', 'amharic': 'am', 'arabic': 'ar', 'armenian': 'hy', 'azerbaijani': 'az', 'basque': 'eu', 'belarusian': 'be', 'bengali': 'bn', 'bosnian': 'bs', 'bulgarian': 'bg', 'catalan': 'ca', 'cebuano': 'ceb', 'chichewa': 'ny', 'chinese (simplified)': 'zh-CN', 'chinese (traditional)': 'zh-TW', 'corsican': 'co', 'croatian': 'hr', 'czech': 'cs', 'danish': 'da', 'dutch': 'nl', 'english': 'en', 'esperanto': 'eo', 'estonian': 'et', 'filipino': 'tl', 'finnish': 'fi', 'french': 'fr', 'frisian': 'fy', 'galician': 'gl', 'georgian': 'ka', 'german': 'de', 'greek': 'el', 'gujarati': 'gu', 'haitian creole': 'ht', 'hausa': 'ha', 'hawaiian': 'haw', 'hebrew': 'iw', 'hindi': 'hi', 'hmong': 'hmn', 'hungarian': 'hu', 'icelandic': 'is', 'igbo': 'ig', 'indonesian': 'id', 'irish': 'ga', 'italian': 'it', 'japanese': 'ja', 'javanese': 'jw', 'kannada': 'kn', 'kazakh': 'kk', 'khmer': 'km', 'korean': 'ko', 'kurdish (kurmanji)': 'ku', 'kyrgyz': 'ky', 'lao': 'lo', 'latin': 'la', 'latvian': 'lv', 'lithuanian': 'lt', 'luxembourgish': 'lb', 'macedonian': 'mk', 'malagasy': 'mg', 'malay': 'ms', 'malayalam': 'ml', 'maltese': 'mt', 'maori': 'mi', 'marathi': 'mr', 'mongolian': 'mn', 'myanmar (burmese)': 'my', 'nepali': 'ne', 'norwegian': 'no', 'odia': 'or', 'pashto': 'ps', 'persian': 'fa', 'polish': 'pl', 'portuguese': 'pt', 'punjabi': 'pa', 'romanian': 'ro', 'russian': 'ru', 'samoan': 'sm', 'scots gaelic': 'gd', 'serbian': 'sr', 'sesotho': 'st', 'shona': 'sn', 'sindhi': 'sd', 'sinhala': 'si', 'slovak': 'sk', 'slovenian': 'sl', 'somali': 'so', 'spanish': 'es', 'sundanese': 'su', 'swahili': 'sw', 'swedish': 'sv', 'tajik': 'tg', 'tamil': 'ta', 'telugu': 'te', 'thai': 'th', 'turkish': 'tr', 'ukrainian': 'uk', 'urdu': 'ur', 'uyghur': 'ug', 'uzbek': 'uz', 'vietnamese': 'vi', 'welsh': 'cy', 'xhosa': 'xh', 'yiddish': 'yi', 'yoruba': 'yo', 'zulu': 'zu'}
     text1 = Trans()
     speech = gTTS(text=text1, lang=lang_codes[dest_lang.get()], slow=False)
-    speech.save("out.mp3")
-    playsound("out.mp3")
-    # os.system("start out.mp3")
-image_path = "C:\PCL\Aditi College\SE\PBL\Audio.jpg"  
+    out = "C:\PCL\Aditi College\SE\PBL\Translator(SE Project)\out.mp3"
+    # minimize_window(out)
+    speech.save(out)
+    # playsound(out)
+    os.system("start out.mp3")
+image_path = "C:\PCL\Aditi College\SE\PBL\Translator(SE Project)\Audio.jpg"  
 img = Image.open(image_path)
 img = img.resize((50,50))
 img = ImageTk.PhotoImage(img)
 img_btn = Button(root, image=img, pady=5, command=voice, bg="orange", activebackground="green")
 img_btn.place(x=600, y=250)
-
-root.lift()
 
 while(True):
     root.mainloop()
